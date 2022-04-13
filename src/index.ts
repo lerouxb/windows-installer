@@ -126,6 +126,7 @@ export async function createWindowsInstaller(options: Options): Promise<void> {
   log(`Created NuSpec file:\n${nuspecContent}`);
 
   const nugetOutput = await createTempDir('si-');
+  console.log({ nugetOutput });
   const targetNuspecPath = path.join(nugetOutput, metadata.name + '.nuspec');
 
   await fs.writeFile(targetNuspecPath, nuspecContent);
@@ -145,6 +146,9 @@ export async function createWindowsInstaller(options: Options): Promise<void> {
 
   // Call NuGet to create our package
   log(await spawn(cmd, args));
+
+  console.log(fs.readdirSync(nugetOutput));
+  process.exit();
   const nupkgPath = path.join(nugetOutput, `${metadata.name}.${metadata.version}.nupkg`);
 
   if (remoteReleases) {

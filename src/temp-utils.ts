@@ -1,6 +1,6 @@
 import * as temp from 'temp';
 import { promisify } from 'util';
-temp.track();
+//temp.track();
 
 const createTempDir = promisify(temp.mkdir as Function);
 
